@@ -17,6 +17,7 @@
     "node-sass": "^4.11.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "sass-loader": "^7.1.0",
     "whatwg-fetch": "^3.0.0"
   },
   "eslintConfig": {
