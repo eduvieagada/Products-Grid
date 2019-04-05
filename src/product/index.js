@@ -1,9 +1,13 @@
 import React from 'react';
-import './style.css';
+import './style.scss';
 
 const Product = (props) => (
+    <div className="product-container">
     <div className="product">
-        <p>Product</p>
+        <div className="ellipse">
+            <p className="product-pic">( `·´ )</p>
+        </div>
+    </div>
     </div>
 );
 
