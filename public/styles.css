@@ -1,12 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400|Roboto+Condensed');
 
 body {
     font-family: Roboto, sans-serif;
+    color: #262A3B;
 }
 
 .title-bar {
     background-color: #262A3B;
     position: absolute;
+    overflow: hidden;
     width: 100%;
     height: 15%;
     left: 0;
@@ -35,10 +37,10 @@ body {
     top: 15%;
     left: 2%;
     font-style: normal;
-    font-weight: 100;
     font-size: 24px;
     line-height: normal;
     text-align: center;
+    margin-top: 30px;
 }
 
 .message {
@@ -57,10 +59,10 @@ p {
     text-align: center;
 }
 
-#main-message {
-    /*padding-left: 5%;*/
+.main-message {
+    font-weight: 300;
 }
-/*.products {*/
-    /*position: absolute;*/
-    /**/
-/*}*/
+
+img {
+    position: relative;
+}
