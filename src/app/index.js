@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Product from '../product';
 import './style.scss';
+import LoadingImage from "../loading";
+import Advert from "../advert";
 
 
 class App extends Component {
@@ -14,10 +16,13 @@ class App extends Component {
             sortParameter: "id",
             hasMore: true,
             isLoading: false,
-            error: false
+            error: false,
+            adNo: Math.floor(Math.random()*1000)
         };
 
         this.change = this.change.bind(this);
+
+        // on scroll event handler for browser window
 
         window.onscroll = () => {
 
@@ -29,7 +34,7 @@ class App extends Component {
             let y = offset + window.innerHeight
 
             if (y >= contentHeight) {
-                this.setState({ pageIndex: this.state.pageIndex + 1 })
+                this.setState({pageIndex: this.state.pageIndex + 1})
             }
         }
     }
@@ -44,8 +49,8 @@ class App extends Component {
     }
 
     change(event) {
-        this.setState({ products: [] })
-        this.setState({ sortParameter: event.target.value });
+        this.setState({products: []})
+        this.setState({sortParameter: event.target.value});
     }
 
     getProducts() {
@@ -53,15 +58,19 @@ class App extends Component {
     }
 
     updateProductsUi() {
+        this.setState({isLoading: true});
+
         this.getProducts()
             .then(response => response.json())
-            .then(json => this.setState({products: [...this.state.products, ...json]}));
+            .then(json => this.setState({products: [...this.state.products, ...json], isLoading: false}));
     }
 
 
     render() {
         return (
             <div>
+                {this.state.isLoading && <LoadingImage/>}
+
                 <select onChange={this.change} value={this.state.sortParameter}>
                     <option value="price">Price</option>
                     <option value="size">Size</option>
@@ -70,9 +79,21 @@ class App extends Component {
 
                 <div className="product-list">
                     {
-                        this.state.products.map(product => (
-                                <Product key={product.id} price={product.price} size={product.size} picture={product.face}
-                                         date={product.date}/>
+                        this.state.products.map((product, index) => (
+                                index % 20 === 0 ?
+                                    <div>
+                                        <Advert adNo={   Math.floor(Math.random()*1000)}/>
+                                        <Product key={product.id} price={product.price} size={product.size}
+                                                 picture={product.face}
+                                                 date={product.date}/>
+                                    </div>
+                                    :
+
+                                    <Product key={product.id} price={product.price} size={product.size}
+                                             picture={product.face}
+                                             date={product.date}/>
+
+
                             )
                         )
                     }
