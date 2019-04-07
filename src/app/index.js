@@ -17,7 +17,7 @@ class App extends Component {
             hasMore: true,
             isLoading: false,
             error: false,
-            adNo: Math.floor(Math.random()*1000)
+            adNo: Math.floor(Math.random() * 1000)
         };
 
         this.change = this.change.bind(this);
@@ -65,6 +65,16 @@ class App extends Component {
             .then(json => this.setState({products: [...this.state.products, ...json], isLoading: false}));
     }
 
+    generateAdNo() {
+        let adNo = Math.random() * 1000;
+
+        while (adNo === this.state.adNo) {
+            adNo = Math.random() * 1000;
+        }
+
+        this.setState({adNo: adNo});
+    }
+
 
     render() {
         return (
@@ -82,7 +92,7 @@ class App extends Component {
                         this.state.products.map((product, index) => (
                                 index % 20 === 0 ?
                                     <div className="advert-and-product">
-                                        <Advert adNo={   Math.floor(Math.random()*1000)}/>
+                                        <Advert adNo={this.generateAdNo()}/>
                                         <Product key={product.id} price={product.price} size={product.size}
                                                  picture={product.face}
                                                  date={product.date}/>
