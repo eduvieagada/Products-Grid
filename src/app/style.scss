@@ -1,6 +1,10 @@
 .product-list {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+
+    .advert-and-product {
+        display: flex;
+        flex-wrap: nowrap;
+    }
 }

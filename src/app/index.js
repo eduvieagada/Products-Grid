@@ -81,7 +81,7 @@ class App extends Component {
                     {
                         this.state.products.map((product, index) => (
                                 index % 20 === 0 ?
-                                    <div>
+                                    <div className="advert-and-product">
                                         <Advert adNo={   Math.floor(Math.random()*1000)}/>
                                         <Product key={product.id} price={product.price} size={product.size}
                                                  picture={product.face}

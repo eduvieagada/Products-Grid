@@ -7,10 +7,15 @@ const DateContainer = (props) => {
     let currentDate = new Date();
     let itemDate = new Date(props.itemDate);
 
-    if (currentDate.getDate() - itemDate.getDate() > 7 || currentDate.getMonth() > itemDate.getMonth()) {
-        return <p>{ Moment(itemDate).format("MMMM Do YYYY") }</p>
+    if (currentDate.getdate < itemDate.getDate() || currentDate.getDate() - itemDate.getDate() > 7 || currentDate.getMonth() > itemDate.getMonth()) {
+        return <p>{ Moment(itemDate).format("MMMM Do YYYY") }</p>;
     } else {
-        return <p>{ currentDate.getDay() - itemDate.getDay() } days ago</p>
+        let howManyDaysAgo = Math.abs(currentDate.getDay() - itemDate.getDay());
+
+        if (howManyDaysAgo === 0)
+            return <p>Today</p>;
+
+        return <p>{ howManyDaysAgo } days ago</p>;
     }
 };
 
