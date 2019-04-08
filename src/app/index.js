@@ -44,8 +44,11 @@ class App extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if ((this.state.sortParameter !== prevState.sortParameter) || (this.state.pageIndex !== prevState.pageIndex))
+        if ((this.state.sortParameter !== prevState.sortParameter) || (this.state.pageIndex !== prevState.pageIndex)){
             this.updateProductsUi();
+            this.generateAdNo();
+        }
+
     }
 
     change(event) {
@@ -92,7 +95,7 @@ class App extends Component {
                         this.state.products.map((product, index) => (
                                 index % 20 === 0 ?
                                     <div className="advert-and-product">
-                                        <Advert adNo={this.generateAdNo()}/>
+                                        <Advert adNo={this.state.adNo}/>
                                         <Product key={product.id} price={product.price} size={product.size}
                                                  picture={product.face}
                                                  date={product.date}/>
