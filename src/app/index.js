@@ -17,7 +17,7 @@ class App extends Component {
             hasMore: true,
             isLoading: false,
             error: false,
-            adNo: Math.floor(Math.random() * 1000)
+            adNumbers: []
         };
 
         this.change = this.change.bind(this);
@@ -62,17 +62,26 @@ class App extends Component {
 
         this.getProducts()
             .then(response => response.json())
-            .then(json => this.setState({products: [...this.state.products, ...json], isLoading: false}));
+            .then(json => {
+                const originalLength = this.state.products.length;
+                const products = [...this.state.products, ...json];
+               if (Math.floor(originalLength / 20) === Math.floor(products.length / 20)){
+                   let newAdNo = this.generateAdNo();
+
+                   this.setState({adNumbers: [...this.state.adNumbers, newAdNo]});
+               }
+
+
+                this.setState({products, isLoading: false})
+            });
     }
 
     generateAdNo() {
-        let adNo = Math.random() * 1000;
+        let adNo = Math.floor(Math.random() * 1000);
 
-        while (adNo === this.state.adNo) {
-            adNo = Math.random() * 1000;
+        while (this.state.adNumbers.includes(adNo)) {
+            adNo = Math.floor(Math.random() * 1000);
         }
-
-        //this.setState({adNo: adNo});
 
         return adNo;
     }
@@ -92,9 +101,9 @@ class App extends Component {
                 <div className="product-list">
                     {
                         this.state.products.map((product, index) => (
-                                index % 20 === 0 ?
+                                index % 20 === 0 && index !== 0 ?
                                     <div className="advert-and-product">
-                                        <Advert adNo={this.generateAdNo()}/>
+                                        <Advert adNo={this.state.adNumbers[Math.floor((index-1) / 20)]}/>
                                         <Product key={product.id} price={product.price} size={product.size}
                                                  picture={product.face}
                                                  date={product.date}/>
